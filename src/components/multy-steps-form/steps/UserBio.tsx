@@ -1,14 +1,7 @@
+import { IStepProps } from "../../../interfaces/IStepProps"
 import { TextField } from "../fields/TextField"
-import { UpdateFormData } from "../MultyStepsForm"
 
-interface IProps {
-  toNextStep: () => void
-  updateFormData: (data: UpdateFormData) => void
-  name: string
-  lastName: string
-}
-
-export const UserBio: React.FC<IProps> = ({toNextStep, updateFormData, name, lastName}) => {
+export const UserBio: React.FC<IStepProps> = ({toNextStep, updateFormData, name, lastName}) => {
   const updateName = (value: string) => updateFormData({name: value})
   const updateLastName = (value: string) => updateFormData({lastName: value})
 
@@ -26,6 +19,9 @@ export const UserBio: React.FC<IProps> = ({toNextStep, updateFormData, name, las
         onInputChange={updateLastName}
         inputValue={lastName}
         alertContent="Last name is required"/>
+        <button onClick={() => toNextStep()}>
+          Click
+        </button>
     </div>
   )
 }

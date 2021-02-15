@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import { MultyStepsForm } from './components/multy-steps-form/MultyStepsForm';
 

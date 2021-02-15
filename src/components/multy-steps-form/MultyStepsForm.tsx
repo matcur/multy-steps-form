@@ -15,8 +15,10 @@ export interface IFormData {
 
 export type UpdateFormData = Nullable<IFormData>
 
+export type StepNames = 'Bio' | 'Contacts' | 'Avatar'
+
 export const MultyStepsForm = () => {
-  const [currentStep, setCurrentStep] = useState(0)
+  const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [formData, setFormData] = useState<IFormData>({
     name: '',
     lastName: '',
@@ -25,13 +27,16 @@ export const MultyStepsForm = () => {
     email: '',
   })
 
-  const toNextStep = () => setCurrentStep(currentStep + 1)
+  const toNextStep = () => setCurrentStepIndex(currentStepIndex + 1)
+  const goToStepByIndex = (i: number) => setCurrentStepIndex(i)
   const updateFormData = (newData: UpdateFormData) => {
     setFormData({
       ...formData,
       ...newData,
     })
   }
+  const isFinalStep = (step: number) => step === Object.values(steps).length - 1
+  const getStepByIndex = (i: number) => Object.values(steps)[i]
 
   const stepProps = {
     toNextStep,
@@ -39,19 +44,20 @@ export const MultyStepsForm = () => {
     ...formData,
   }
 
-  const steps = [
-    <UserBio {...stepProps}/>, 
-    <UserContacts {...stepProps}/>,
-    <UserAvatar {...stepProps}/>,
-    <TotalInfo {...formData}/>,
-  ]
+  const steps = {
+    'Bio': <UserBio {...stepProps}/>, 
+    'Contacts': <UserContacts {...stepProps}/>,
+    'Avatar': <UserAvatar {...stepProps}/>,
+  }
 
   return (
     <div className="multy-steps-form">
-      {steps[currentStep]}
-      <button onClick={() => toNextStep()}>
-        Click
-      </button>
+      {isFinalStep(currentStepIndex)? 
+        <TotalInfo
+          {...formData}
+          stepNames={Object.keys(steps)}
+          goToStepByIndex={goToStepByIndex}/>:
+        getStepByIndex(currentStepIndex)}
     </div>
   )
 }

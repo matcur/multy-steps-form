@@ -1,13 +1,7 @@
+import { IStepProps } from "../../../interfaces/IStepProps"
 import { ImageField } from "../fields/ImageField"
-import { UpdateFormData } from "../MultyStepsForm"
 
-interface IProps {
-  toNextStep: () => void
-  updateFormData: (data: UpdateFormData) => void
-  avatar: string
-}
-
-export const UserAvatar: React.FC<IProps> = ({toNextStep, updateFormData, avatar}) => {
+export const UserAvatar: React.FC<IStepProps> = ({toNextStep, updateFormData, avatar}) => {
   const updateAvatar = (value: string) => updateFormData({avatar: value})
   const uploadFiles = (files: FileList) => {
     updateAvatar('/cats/index.jpg')
@@ -21,6 +15,9 @@ export const UserAvatar: React.FC<IProps> = ({toNextStep, updateFormData, avatar
         className="avatar-field field"
         labelContent="Avatar"
         uploadFiles={uploadFiles}/>
+      <button onClick={() => toNextStep()}>
+        Click
+      </button>
     </div>
   )
 }
