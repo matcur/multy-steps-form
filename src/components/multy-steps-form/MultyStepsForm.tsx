@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Nullable } from "../../interfaces/Nullable"
 import { TotalInfo } from "./steps/TotalInfo"
 import { UserAvatar } from "./steps/UserAvatar"
 import { UserBio } from "./steps/UserBio"
@@ -12,9 +13,7 @@ export interface IFormData {
   email: string
 }
 
-export type UpdateFormData<K extends keyof IFormData> = {
-  [P in K]?: IFormData[P]
-}
+export type UpdateFormData = Nullable<IFormData>
 
 export const MultyStepsForm = () => {
   const [currentStep, setCurrentStep] = useState(0)
@@ -27,7 +26,7 @@ export const MultyStepsForm = () => {
   })
 
   const toNextStep = () => setCurrentStep(currentStep + 1)
-  const updateFormData = (newData: UpdateFormData<keyof IFormData>) => {
+  const updateFormData = (newData: UpdateFormData) => {
     setFormData({
       ...formData,
       ...newData,

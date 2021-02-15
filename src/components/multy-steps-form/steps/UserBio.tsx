@@ -3,7 +3,7 @@ import { UpdateFormData } from "../MultyStepsForm"
 
 interface IProps {
   toNextStep: () => void
-  updateFormData: (data: UpdateFormData<'name' | 'lastName'>) => void
+  updateFormData: (data: UpdateFormData) => void
   name: string
   lastName: string
 }
