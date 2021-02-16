@@ -1,12 +1,13 @@
 import { IStepProps } from "../../../interfaces/IStepProps"
 import { TextField } from "../fields/TextField"
+import { BaseStep } from "./BaseStep"
 
 export const UserBio: React.FC<IStepProps> = ({toNextStep, updateFormData, name, lastName}) => {
   const updateName = (value: string) => updateFormData({name: value})
   const updateLastName = (value: string) => updateFormData({lastName: value})
 
-  return (
-    <div className="user-bio-step form-step">
+  const fields = [
+    <>
       <TextField
         className="name-field field"
         labelContent="Name"
@@ -19,9 +20,18 @@ export const UserBio: React.FC<IStepProps> = ({toNextStep, updateFormData, name,
         onInputChange={updateLastName}
         inputValue={lastName}
         alertContent="Last name is required"/>
-        <button onClick={() => toNextStep()}>
-          Click
-        </button>
-    </div>
+    </>
+  ]
+  const buttons = [
+    <button onClick={() => toNextStep()}>
+      Click
+    </button>
+  ]
+
+  return (
+    <BaseStep
+      fields={fields}
+      buttons={buttons}
+      stepClassName="user-bio-step"/>
   )
 }
